@@ -35,9 +35,24 @@ func main() {
 		numbers = append(numbers, value)
 	}
 
+	algorithms := []struct {
+		name   string
+		sorter func([]int) []int
+	}{
+		{"Сортировка вставками", sorts.InsertionSort},
+		{"Быстрая сортировка", sorts.QuickSort},
+		{"Сортировка слиянием", sorts.MergeSort},
+		{"Пирамидальная сортировка", sorts.HeapSort},
+		{"Timsort", sorts.TimSort},
+		{"Поразрядная сортировка", sorts.RadixSort},
+		{"Сортировка подсчётом", sorts.CountingSort},
+		{"Блочная сортировка", sorts.BucketSort},
+	}
+
 	fmt.Println("Выберите алгоритм сортировки:")
-	fmt.Println("1 - Сортировка вставками")
-	fmt.Println("2 - Быстрая сортировка")
+	for i, alg := range algorithms {
+		fmt.Printf("%d - %s\n", i+1, alg.name)
+	}
 	fmt.Print("Ваш выбор: ")
 
 	var choice int
@@ -46,19 +61,15 @@ func main() {
 		return
 	}
 
-	var result []int
-	switch choice {
-	case 1:
-		result = sorts.InsertionSort(numbers)
-		fmt.Println("Вы выбрали сортировку вставками.")
-	case 2:
-		result = sorts.QuickSort(numbers)
-		fmt.Println("Вы выбрали быструю сортировку.")
-	default:
+	if choice < 1 || choice > len(algorithms) {
 		fmt.Println("Неизвестный выбор, завершение работы.")
 		return
 	}
 
+	selected := algorithms[choice-1]
+	result := selected.sorter(numbers)
+
+	fmt.Printf("Вы выбрали: %s\n", selected.name)
 	fmt.Printf("Исходный массив: %v\n", numbers)
 	fmt.Printf("Отсортированный массив: %v\n", result)
 }
