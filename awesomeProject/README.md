@@ -1,6 +1,6 @@
 # Алгоритмы сортировки
 
-- [Быстрая сортировка](sorts/quick.go) (O(n log n) в среднем / O(n^2) в худшем)
+- [Быстрая сортировка](sorts/quick.go) O(n log n)
 - [Сортировка слиянием](sorts/merge.go) (O(n log n))
 - [Пирамидальная сортировка](sorts/heap.go) (O(n log n))
 - [Timsort](sorts/tim.go) (O(n log n))
